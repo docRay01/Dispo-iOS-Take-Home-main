@@ -4,6 +4,10 @@ struct APIListResponse: Codable {
   var data: [GifObject]
 }
 
+struct APIGifInfoResponse: Codable {
+  var data: GifObject
+}
+
 struct GifObject: Codable {
   var id: String
   var title: String
