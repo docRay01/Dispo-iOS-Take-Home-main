@@ -1,15 +1,23 @@
 import UIKit
 
 class DetailViewController: UIViewController {
-  init(searchResult: SearchResult) {
-    super.init(nibName: nil, bundle: nil)
-  }
-
-  override func loadView() {
-    view = UIView()
-  }
-
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
+    let viewModel = DetailViewModel()
+    
+    init(searchResult: SearchResult) {
+        super.init(nibName: nil, bundle: nil)
+        initialize()
+    }
+    
+    override func loadView() {
+        view = UIView()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        initialize()
+    }
+    
+    func initialize() {
+        
+    }
 }

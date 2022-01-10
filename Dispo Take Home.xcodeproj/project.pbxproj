@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		541936E5278BB98D00B290E9 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541936E4278BB98D00B290E9 /* DetailViewModel.swift */; };
 		5481676A278B8D6600E66455 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54816769278B8D6600E66455 /* MainViewModel.swift */; };
 		5481676E278B90BB00E66455 /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5481676D278B90BB00E66455 /* MainCollectionViewCell.swift */; };
 		9A829F02277D7CF7002C03F2 /* APIListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A829F01277D7CF7002C03F2 /* APIListResponse.swift */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		541936E4278BB98D00B290E9 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		54816769278B8D6600E66455 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		5481676D278B90BB00E66455 /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
 		9A829F01277D7CF7002C03F2 /* APIListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIListResponse.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				FF9415D125EED2590029E28F /* DetailViewController.swift */,
+				541936E4278BB98D00B290E9 /* DetailViewModel.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -212,6 +215,7 @@
 				FF9415CB25EED1360029E28F /* MainViewController.swift in Sources */,
 				5481676A278B8D6600E66455 /* MainViewModel.swift in Sources */,
 				FF9415B525EECD340029E28F /* AppDelegate.swift in Sources */,
+				541936E5278BB98D00B290E9 /* DetailViewModel.swift in Sources */,
 				5481676E278B90BB00E66455 /* MainCollectionViewCell.swift in Sources */,
 				FF9415B725EECD340029E28F /* SceneDelegate.swift in Sources */,
 				FF9415D225EED25A0029E28F /* DetailViewController.swift in Sources */,

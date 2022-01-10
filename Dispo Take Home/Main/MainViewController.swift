@@ -1,4 +1,5 @@
 import UIKit
+import SwiftUI
 
 class MainViewController: UIViewController {
     
@@ -66,6 +67,7 @@ extension MainViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // TODO
         print("click!")
+        self.navigationController?.pushViewController(DetailViewController(searchResult: SearchResult(id: "placeholder", gifUrl: URL(string: "placeholder"), title: "placeholder")), animated: true)
     }
 }
 
