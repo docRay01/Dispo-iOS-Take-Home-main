@@ -8,6 +8,8 @@
 import Foundation
 
 class MainViewModel {
+    let apiClient = ReferenceContainer.shared.giphyService
+    
     var numberOfCells: Int {
         // TODO: Connect to the APIs
         10
