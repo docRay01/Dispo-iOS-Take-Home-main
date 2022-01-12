@@ -5,6 +5,8 @@ class GifAPIClient {
     private let apiKey: String
     private let baseGiphyUrl = "https://api.giphy.com/v1/gifs"
     
+    public weak var view: MainViewModel?
+    
     let maximumLength = 5000
     
     init() {
@@ -23,11 +25,11 @@ class GifAPIClient {
     func getTrending(count: Int,
                      offset: Int,
                      completionHandler: @escaping(APIListResponse) -> Void) {
+        
         guard let url = URL(string: baseGiphyUrl + "/trending"
                             + "?api_key=" + apiKey
                             + "&limit=" + String(count)
-                            + "&offset="
-                            + String(offset)
+                            + "&offset=" + String(offset)
                             + "&rating=pg") else {
             return
         }

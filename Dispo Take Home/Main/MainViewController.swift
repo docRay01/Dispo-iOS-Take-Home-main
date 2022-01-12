@@ -11,6 +11,8 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         navigationItem.titleView = searchBar
         
+        viewModel.view = self
+        viewModel.populateInitialCells()
     }
     
     override func loadView() {
@@ -20,6 +22,17 @@ class MainViewController: UIViewController {
         
         collectionView.snp.makeConstraints {
             $0.edges.equalToSuperview()
+        }
+    }
+    
+    func reloadCells(from: Int, count: Int) {
+        DispatchQueue.main.async {
+        }
+    }
+    
+    func refreshCollectionView() {
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
         }
     }
     
@@ -33,7 +46,7 @@ class MainViewController: UIViewController {
     private var layout: UICollectionViewLayout {
         // TODO: something fancier
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 100, height: 100)
+        layout.itemSize = CGSize(width: 150, height: 150)
         return layout
     }
     
