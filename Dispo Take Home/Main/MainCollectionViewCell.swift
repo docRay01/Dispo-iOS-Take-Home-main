@@ -35,6 +35,6 @@ class MainCollectionViewCell: UICollectionViewCell {
     func loadData(gifData: GifObject) {
         let url: URL = gifData.images.fixed_height_small.url
         let animatedImageViewResource = ImageResource(downloadURL: url, cacheKey: url.absoluteString)
-        let task = imageView?.kf.setImage(with: animatedImageViewResource)
+        imageView?.kf.setImage(with: animatedImageViewResource)
     }
 }

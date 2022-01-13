@@ -83,9 +83,13 @@ extension MainViewController: UISearchBarDelegate {
 
 extension MainViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // TODO
-        print("click!")
-        self.navigationController?.pushViewController(DetailViewController(searchResult: SearchResult(id: "placeholder", gifUrl: URL(string: "placeholder"), title: "placeholder")), animated: true)
+        // TODO: Don't pass as much detail to view controller
+        guard let gifData = self.viewModel.getCell(indexPath.row) else {
+            return
+        }
+        let detailViewController = DetailViewController(searchResult: SearchResult(id: gifData.id, gifUrl: gifData.images.fixed_height.url, title: gifData.title))
+                                                        
+        self.navigationController?.pushViewController(detailViewController, animated: true)
     }
 }
 
