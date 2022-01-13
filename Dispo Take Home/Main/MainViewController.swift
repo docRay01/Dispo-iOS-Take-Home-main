@@ -25,8 +25,13 @@ class MainViewController: UIViewController {
         }
     }
     
-    func reloadCells(from: Int, count: Int) {
+    func reloadCells(from start: Int, count: Int) {
         DispatchQueue.main.async {
+            var indexPaths: [IndexPath] = []
+            for i in 0 ... count - 1 {
+                indexPaths.append(IndexPath(row: start + i, section: 0))
+            }
+            self.collectionView.reloadItems(at: indexPaths)
         }
     }
     
@@ -86,7 +91,13 @@ extension MainViewController: UICollectionViewDelegate {
 
 extension MainViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return collectionView.dequeueReusableCell(withReuseIdentifier: cellName, for: indexPath)
+        let possibleCell = collectionView.dequeueReusableCell(withReuseIdentifier: cellName, for: indexPath)
+        guard let cell = possibleCell as? MainCollectionViewCell,
+              let data:GifObject = self.viewModel.getCell(indexPath.row) else {
+            return possibleCell
+        }
+        cell.loadData(gifData: data)
+        return cell
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
