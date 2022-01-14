@@ -10,7 +10,7 @@ import Foundation
 class MainViewModel {
     let apiClient = ReferenceContainer.shared.giphyService
     
-    var view: MainViewController?
+    weak var view: MainViewController?
     
     private var cellData: [Int: GifObject] = [:]
     private var requestsBeingMade: [Int: Int] = [:]

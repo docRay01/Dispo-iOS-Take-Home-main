@@ -87,7 +87,7 @@ extension MainViewController: UICollectionViewDelegate {
         guard let gifData = self.viewModel.getCell(indexPath.row) else {
             return
         }
-        let detailViewController = DetailViewController(searchResult: SearchResult(id: gifData.id, gifUrl: gifData.images.fixed_height.url, title: gifData.title))
+        let detailViewController = DetailViewController(gifId: gifData.id)
                                                         
         self.navigationController?.pushViewController(detailViewController, animated: true)
     }
