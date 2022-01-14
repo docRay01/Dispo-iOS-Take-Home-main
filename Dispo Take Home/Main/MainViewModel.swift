@@ -85,11 +85,20 @@ class MainViewModel: NSObject {
                 // If there is not, open that request
                 requestsBeingMade[requestOffset] = index
                 
-                ReferenceContainer.shared.giphyService.getTrending(count: 25, offset: requestOffset) { [weak self] apiListResponse in
-                    
-                    guard let self = self else { return }
-                    self.processAPIResults(apiListResponse: apiListResponse, requestOffset:requestOffset)
+                if let searchQuery = displayedSearchQuery {
+                    ReferenceContainer.shared.giphyService.getSearch(query: searchQuery, count: 25, offset: requestOffset) { [weak self] apiListResponse in
+                        
+                        guard let self = self else { return }
+                        self.processAPIResults(apiListResponse: apiListResponse, requestOffset:requestOffset)
+                    }
+                } else {
+                    ReferenceContainer.shared.giphyService.getTrending(count: 25, offset: requestOffset) { [weak self] apiListResponse in
+                        
+                        guard let self = self else { return }
+                        self.processAPIResults(apiListResponse: apiListResponse, requestOffset:requestOffset)
+                    }
                 }
+                
             }
         }
         
