@@ -7,7 +7,7 @@
 
 import Foundation
 
-class MainViewModel {
+class MainViewModel: NSObject {
     let apiClient = ReferenceContainer.shared.giphyService
     
     weak var view: MainViewController?
@@ -16,6 +16,7 @@ class MainViewModel {
     private var requestsBeingMade: [Int: Int] = [:]
     
     private var hasCompletedInitialLoad = false
+    private var displayedSearchQuery: String?
     
     var numberOfCells: Int {
         if hasCompletedInitialLoad {
@@ -26,14 +27,52 @@ class MainViewModel {
     }
     
     func populateInitialCells() {
-        ReferenceContainer.shared.giphyService.getTrending(count: 25, offset: 0) { [weak self] apiListResponse in
+        if let searchQuery = displayedSearchQuery {
+            ReferenceContainer.shared.giphyService.getSearch(query: searchQuery, count: 25, offset: 0) { [weak self] apiListResponse in
             
-            guard let self = self else { return }
-            print(apiListResponse)
-            self.processAPIResults(apiListResponse: apiListResponse, requestOffset: 0)
-            self.hasCompletedInitialLoad = true
-            self.view?.refreshCollectionView()
+                guard let self = self else { return }
+                print(apiListResponse)
+                self.processAPIResults(apiListResponse: apiListResponse, requestOffset: 0)
+                self.hasCompletedInitialLoad = true
+                self.view?.refreshCollectionView()
+            }
+        } else {
+            ReferenceContainer.shared.giphyService.getTrending(count: 25, offset: 0) { [weak self] apiListResponse in
+            
+                guard let self = self else { return }
+                print(apiListResponse)
+                self.processAPIResults(apiListResponse: apiListResponse, requestOffset: 0)
+                self.hasCompletedInitialLoad = true
+                self.view?.refreshCollectionView()
+            }
         }
+    }
+    
+    var queuedSearchString = ""
+    func setSearchString(text: String, delaySearch: Bool) {
+        queuedSearchString = text
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(doSearch), object: nil)
+        if delaySearch {
+            self.perform(#selector(doSearch), with: nil, afterDelay: 0.5)
+        } else {
+            doSearch()
+        }
+    }
+    
+    @objc private func doSearch() {
+        print ("Ding")
+        
+        guard !queuedSearchString.isEmpty else {
+            displayedSearchQuery = nil
+            return
+        }
+        
+        guard self.displayedSearchQuery != queuedSearchString else {
+            return
+        }
+        
+        self.displayedSearchQuery = queuedSearchString
+        self.populateInitialCells()
     }
     
     func getCell(_ index: Int) -> GifObject? {

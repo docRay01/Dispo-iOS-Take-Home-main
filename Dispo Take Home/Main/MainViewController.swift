@@ -4,7 +4,6 @@ import SwiftUI
 class MainViewController: UIViewController {
     
     let cellName = "gifCell"
-    
     let viewModel = MainViewModel()
     
     override func viewDidLoad() {
@@ -77,7 +76,13 @@ class MainViewController: UIViewController {
 
 extension MainViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        // TODO: implement
+        // Wait 0.5 seconds before kicking off search to avoid spamming service
+        viewModel.setSearchString(text: searchText, delaySearch: true)
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        // If there is a change in the text from the previous search text, then
+        // kick off a search
     }
 }
 
