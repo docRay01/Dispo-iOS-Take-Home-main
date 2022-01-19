@@ -29,26 +29,27 @@ class MainViewModel: NSObject {
     func populateInitialCells() {
         // Wipe the stored cells
         cellData = [:]
+        hasCompletedInitialLoad = false
         
         if let searchQuery = displayedSearchQuery {
             ReferenceContainer.shared.giphyService.getSearch(query: searchQuery, count: 25, offset: 0) { [weak self] apiListResponse in
-            
                 guard let self = self else { return }
-                print(apiListResponse)
-                self.processAPIResults(apiListResponse: apiListResponse, requestOffset: 0)
-                self.hasCompletedInitialLoad = true
-                self.view?.refreshCollectionView()
+                self.handleInitialDataCallback(apiListResponse: apiListResponse)
             }
         } else {
             ReferenceContainer.shared.giphyService.getTrending(count: 25, offset: 0) { [weak self] apiListResponse in
-            
                 guard let self = self else { return }
-                print(apiListResponse)
-                self.processAPIResults(apiListResponse: apiListResponse, requestOffset: 0)
-                self.hasCompletedInitialLoad = true
-                self.view?.refreshCollectionView()
+                self.handleInitialDataCallback(apiListResponse: apiListResponse)
             }
         }
+    }
+    
+    func handleInitialDataCallback(apiListResponse: APIListResponse) {
+        self.processAPIResults(apiListResponse: apiListResponse, requestOffset: 0)
+        if cellData.count > 0 {
+            self.hasCompletedInitialLoad = true
+        }
+        self.view?.refreshCollectionView()
     }
     
     var queuedSearchString = ""
@@ -63,8 +64,6 @@ class MainViewModel: NSObject {
     }
     
     @objc private func doSearch() {
-        print ("Ding")
-        
         guard !queuedSearchString.isEmpty else {
             displayedSearchQuery = nil
             return
@@ -110,6 +109,10 @@ class MainViewModel: NSObject {
     
     private func processAPIResults(apiListResponse: APIListResponse, requestOffset: Int) {
         self.requestsBeingMade[requestOffset] = nil
+        
+        guard !apiListResponse.data.isEmpty else {
+            return
+        }
         
         for i in (0 ... apiListResponse.data.count - 1) {
             self.cellData[requestOffset + i] = apiListResponse.data[i]

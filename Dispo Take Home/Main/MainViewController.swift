@@ -36,7 +36,13 @@ class MainViewController: UIViewController {
     
     func refreshCollectionView() {
         DispatchQueue.main.async {
-            self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
+            let firstCellPath = IndexPath(item: 0, section: 0)
+            
+            if self.collectionView(self.collectionView, numberOfItemsInSection: 0) > 0 {
+                self.collectionView.scrollToItem(at: firstCellPath, at: .top, animated: false)
+            } else {
+                self.collectionView.setContentOffset(.zero, animated: false)
+            }
             self.collectionView.reloadData()
         }
     }
