@@ -1,5 +1,10 @@
 import UIKit
 
+protocol MainViewModelDelegate: AnyObject {
+    func reloadCells(from start: Int, count: Int)
+    func refreshCollectionView()
+}
+
 class MainViewController: UIViewController {
     
     let cellName = "gifCell"
@@ -21,29 +26,6 @@ class MainViewController: UIViewController {
         
         collectionView.snp.makeConstraints {
             $0.edges.equalToSuperview()
-        }
-    }
-    
-    func reloadCells(from start: Int, count: Int) {
-        DispatchQueue.main.async {
-            var indexPaths: [IndexPath] = []
-            for i in 0 ... count - 1 {
-                indexPaths.append(IndexPath(row: start + i, section: 0))
-            }
-            self.collectionView.reloadItems(at: indexPaths)
-        }
-    }
-    
-    func refreshCollectionView() {
-        DispatchQueue.main.async {
-            let firstCellPath = IndexPath(item: 0, section: 0)
-            
-            if self.collectionView(self.collectionView, numberOfItemsInSection: 0) > 0 {
-                self.collectionView.scrollToItem(at: firstCellPath, at: .top, animated: false)
-            } else {
-                self.collectionView.setContentOffset(.zero, animated: false)
-            }
-            self.collectionView.reloadData()
         }
     }
     
@@ -76,6 +58,31 @@ class MainViewController: UIViewController {
         collectionView.dataSource = self
         return collectionView
     }()
+}
+
+extension MainViewController: MainViewModelDelegate {
+    func reloadCells(from start: Int, count: Int) {
+        DispatchQueue.main.async {
+            var indexPaths: [IndexPath] = []
+            for i in 0 ... count - 1 {
+                indexPaths.append(IndexPath(row: start + i, section: 0))
+            }
+            self.collectionView.reloadItems(at: indexPaths)
+        }
+    }
+    
+    func refreshCollectionView() {
+        DispatchQueue.main.async {
+            let firstCellPath = IndexPath(item: 0, section: 0)
+            
+            if self.collectionView(self.collectionView, numberOfItemsInSection: 0) > 0 {
+                self.collectionView.scrollToItem(at: firstCellPath, at: .top, animated: false)
+            } else {
+                self.collectionView.setContentOffset(.zero, animated: false)
+            }
+            self.collectionView.reloadData()
+        }
+    }
 }
 
 // MARK: UISearchBarDelegate

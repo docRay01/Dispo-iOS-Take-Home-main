@@ -10,7 +10,7 @@ import Foundation
 class MainViewModel: NSObject {
     let apiClient = ReferenceContainer.shared.giphyService
     
-    weak var view: MainViewController?
+    weak var view: MainViewModelDelegate?
     
     private var cellData: [Int: GifObject] = [:]
     private var requestsBeingMade: [Int: Int] = [:]
@@ -44,7 +44,7 @@ class MainViewModel: NSObject {
         }
     }
     
-    func handleInitialDataCallback(apiListResponse: APIListResponse) {
+    private func handleInitialDataCallback(apiListResponse: APIListResponse) {
         self.processAPIResults(apiListResponse: apiListResponse, requestOffset: 0)
         if cellData.count > 0 {
             self.hasCompletedInitialLoad = true
@@ -52,7 +52,7 @@ class MainViewModel: NSObject {
         self.view?.refreshCollectionView()
     }
     
-    var queuedSearchString = ""
+    private var queuedSearchString = ""
     func setSearchString(text: String, delaySearch: Bool) {
         queuedSearchString = text
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(doSearch), object: nil)
