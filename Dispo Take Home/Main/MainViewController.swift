@@ -1,10 +1,5 @@
 import UIKit
 
-protocol MainViewModelDelegate: AnyObject {
-    func reloadCells(from start: Int, count: Int)
-    func refreshCollectionView()
-}
-
 class MainViewController: UIViewController {
     
     let cellName = "gifCell"

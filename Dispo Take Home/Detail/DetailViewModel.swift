@@ -7,10 +7,14 @@
 
 import Foundation
 
+protocol DetailViewModelDelegate: AnyObject {
+    func refreshView()
+}
+
 class DetailViewModel {
     private(set) var gifData: GifObject?
     
-    weak var view: DetailViewController?
+    weak var view: DetailViewModelDelegate?
     
     func loadSearchResult(id: String) {
         ReferenceContainer.shared.giphyService.getGifDetails(gifID: id) { [weak self] apiInfoResponse in

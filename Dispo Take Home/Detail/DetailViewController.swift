@@ -54,6 +54,9 @@ class DetailViewController: UIViewController {
         }
     }
     
+}
+
+extension DetailViewController: DetailViewModelDelegate {
     func refreshView() {
         guard let gifData = self.viewModel.gifData else {
             return
@@ -76,4 +79,5 @@ class DetailViewController: UIViewController {
             }
         }
     }
+
 }

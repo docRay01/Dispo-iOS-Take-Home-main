@@ -7,6 +7,11 @@
 
 import Foundation
 
+protocol MainViewModelDelegate: AnyObject {
+    func reloadCells(from start: Int, count: Int)
+    func refreshCollectionView()
+}
+
 class MainViewModel: NSObject {
     let apiClient = ReferenceContainer.shared.giphyService
     
