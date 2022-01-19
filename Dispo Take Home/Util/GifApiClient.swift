@@ -1,7 +1,6 @@
 import UIKit
 
 class GifAPIClient {
-  // TODO: Implement
     private let apiKey: String
     private let baseGiphyUrl = "https://api.giphy.com/v1/gifs"
     

@@ -55,9 +55,8 @@ class MainViewController: UIViewController {
     }()
     
     private var layout: UICollectionViewLayout {
-        // TODO: something fancier
         let layout = UICollectionViewFlowLayout()
-        //layout.itemSize = CGSize(width: 150, height: 150)
+        layout.itemSize = CGSize(width: 150, height: 150)
         return layout
     }
     
