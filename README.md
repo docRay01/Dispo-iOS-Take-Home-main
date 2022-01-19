@@ -1,3 +1,9 @@
+# Before running
+
+Add your Giphy API key to Dispo-iOS-Take-Home-main/Dispo Take Home/Assets/AppSecret.json.
+
+The API key is not included as this is a public repository.
+
 # iOS Take Home
 
 Create an iOS app with two views, `MainViewController` and `DetailViewController`. The `MainViewController` contains a list of GIFs from the [Giphy API](https://developers.giphy.com/).
