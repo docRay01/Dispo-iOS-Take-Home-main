@@ -36,6 +36,13 @@ class MainViewController: UIViewController {
     
     func refreshCollectionView() {
         DispatchQueue.main.async {
+            let firstCellPath = IndexPath(item: 0, section: 0)
+            
+            if self.collectionView(self.collectionView, numberOfItemsInSection: 0) > 0 {
+                self.collectionView.scrollToItem(at: firstCellPath, at: .top, animated: false)
+            } else {
+                self.collectionView.setContentOffset(.zero, animated: false)
+            }
             self.collectionView.reloadData()
         }
     }
@@ -76,7 +83,13 @@ class MainViewController: UIViewController {
 
 extension MainViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        // TODO: implement
+        // Wait 0.5 seconds before kicking off search to avoid spamming service
+        viewModel.setSearchString(text: searchText, delaySearch: true)
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        // If there is a change in the text from the previous search text, then
+        // kick off a search
     }
 }
 
