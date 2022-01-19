@@ -6,6 +6,7 @@ class DetailViewController: UIViewController {
     
     let imageView = AnimatedImageView(frame: CGRect(x: 0, y: 200, width: 400, height: 400))
     let titleLabel = UILabel(frame: CGRect(x: 10, y: 610, width: 400, height: 200))
+    let logoImage = UIImageView(frame: CGRect(x: 0, y: 810, width: 97, height: 31))
     
     init(gifId: String) {
         super.init(nibName: nil, bundle: nil)
@@ -36,7 +37,8 @@ class DetailViewController: UIViewController {
         self.view.addSubview(titleLabel)
         
         // giphy logo
-        // TODO
+        logoImage.image = UIImage(named: "GiphyLogo")
+        self.view.addSubview(logoImage)
     }
     
     func refreshView() {
