@@ -3,7 +3,7 @@ import UIKit
 class MainViewController: UIViewController {
     
     let cellName = "gifCell"
-    
+    let cellHeight:Float = 150
     let viewModel = MainViewModel()
     
     override func viewDidLoad() {
@@ -50,7 +50,7 @@ class MainViewController: UIViewController {
     private var layout: UICollectionViewLayout {
         // TODO: something fancier
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 150, height: 150)
+        //layout.itemSize = CGSize(width: 150, height: 150)
         return layout
     }
     
@@ -82,7 +82,6 @@ extension MainViewController: UISearchBarDelegate {
 
 extension MainViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // TODO: Don't pass as much detail to view controller
         guard let gifData = self.viewModel.getCell(indexPath.row) else {
             return
         }
