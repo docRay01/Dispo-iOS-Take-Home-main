@@ -27,6 +27,9 @@ class MainViewModel: NSObject {
     }
     
     func populateInitialCells() {
+        // Wipe the stored cells
+        cellData = [:]
+        
         if let searchQuery = displayedSearchQuery {
             ReferenceContainer.shared.giphyService.getSearch(query: searchQuery, count: 25, offset: 0) { [weak self] apiListResponse in
             
